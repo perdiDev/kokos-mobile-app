@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "821376575755",
+    "project_id": "kokos-app-bf6b2",
+    "storage_bucket": "kokos-app-bf6b2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:821376575755:android:efa66c0cd56652624f1a0e",
+        "android_client_info": {
+          "package_name": "com.example.kokos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBi4Y1BPl3U6pxRh7gF-zocvnsG6LLZHs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

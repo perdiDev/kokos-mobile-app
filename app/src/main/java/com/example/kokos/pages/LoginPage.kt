@@ -22,7 +22,9 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -30,11 +32,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.kokos.AuthState
 import com.example.kokos.AuthViewModel
 import com.example.kokos.ui.theme.Primary
 
@@ -46,6 +50,16 @@ fun LoginPage(modifier: Modifier, navController: NavController, authViewModel: A
 
     var password by remember {
         mutableStateOf("")
+    }
+
+    val authState = authViewModel.authState.observeAsState()
+    val context = LocalContext.current
+
+    LaunchedEffect(authState.value) {
+        when(authState.value) {
+            is AuthState.Authenticated -> navController.navigate("home")
+            else -> Unit
+        }
     }
 
     Column (
@@ -162,7 +176,7 @@ fun LoginPage(modifier: Modifier, navController: NavController, authViewModel: A
                 ),
                 contentPadding = ButtonDefaults.ContentPadding,
                 onClick = {
-
+                    authViewModel.login(email, password)
                 }
             ) {
                 Text(text = "MASUK")
@@ -172,7 +186,9 @@ fun LoginPage(modifier: Modifier, navController: NavController, authViewModel: A
                 colors = ButtonDefaults.textButtonColors(
                     contentColor = Primary
                 ),
-                onClick = { /*TODO*/ }
+                onClick = {
+                    navController.navigate("signup")
+                }
             ) {
                 Text(text = "Belum mendaftar? Daftar sekarang")
             }
@@ -304,7 +320,8 @@ private fun Preview() {
                 colors = ButtonDefaults.textButtonColors(
                     contentColor = Primary
                 ),
-                onClick = { /*TODO*/ }
+                onClick = {
+                }
             ) {
                 Text(text = "Belum mendaftar? Daftar sekarang")
             }
