@@ -56,7 +56,6 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Scaffold (modifier = Modifier.fillMaxSize()) { innerPadding ->
                     MyAppNavigation(modifier = Modifier.padding(innerPadding) ,authViewModel = authViewModel)
-
                 }
             }
         }
