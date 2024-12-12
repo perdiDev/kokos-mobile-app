@@ -38,7 +38,7 @@ fun HomePage(modifier: Modifier, navController: NavController, authViewModel: Au
         Text(text = "Home Page")
 
         Button(onClick = {
-
+            authViewModel.signout()
         }) {
             Text(text = "Logout")
         }
