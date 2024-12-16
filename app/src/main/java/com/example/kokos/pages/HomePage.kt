@@ -42,6 +42,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.kokos.AuthViewModel
 import com.example.kokos.R
 
@@ -51,11 +52,21 @@ fun HomePage(
     navController: NavController,
     authViewModel: AuthViewModel
 ) {
-    Home()
+    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route ?: ""
+    Scaffold (
+        bottomBar = {
+            BottomNavigationBar(
+                navController = navController,
+                currentRoute = currentRoute
+            )
+        }
+    ) {
+        padding -> Home(modifier = Modifier.padding(padding), navController)
+    }
 }
 
 @Composable
-fun Home() {
+fun Home(modifier: Modifier, navController: NavController) {
     Column (
         Modifier
             .fillMaxSize()
@@ -65,7 +76,7 @@ fun Home() {
 
         Spacer(modifier =Modifier.height(24.dp))
 
-        SectionRekomendasi()
+        SectionRekomendasi(navController)
 
         Spacer(modifier =Modifier.height(24.dp))
 
@@ -168,7 +179,7 @@ private fun HeroView() {
 }
 
 @Composable
-private fun SectionRekomendasi() {
+private fun SectionRekomendasi(navController: NavController) {
     Column (
         Modifier.padding(horizontal = 12.dp)
     ) {
@@ -191,6 +202,7 @@ private fun SectionRekomendasi() {
                             Color.Gray.copy(alpha = 0.2f)
                         )
                         .padding(12.dp)
+                        .clickable { navController.navigate("detail_kost") }
                 ) {
                     Column (
                         Modifier.width(180.dp)
@@ -321,11 +333,6 @@ fun SectionKosTerdekat() {
             }
         }
     }
-}
-
-@Composable
-private fun HomePreview() {
-    Home()
 }
 
 @Composable

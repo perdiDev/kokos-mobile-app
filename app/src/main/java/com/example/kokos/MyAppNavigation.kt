@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.kokos.pages.DetailKostScreen
 import com.example.kokos.pages.HomePage
 import com.example.kokos.pages.LoginPage
 import com.example.kokos.pages.OptionLoginPage
@@ -46,6 +47,13 @@ fun MyAppNavigation(modifier: Modifier = Modifier, authViewModel: AuthViewModel)
         }
         composable("home") {
             HomePage(
+                navController = navController,
+                modifier = modifier,
+                authViewModel = authViewModel
+            )
+        }
+        composable("detail_kost") {
+            DetailKostScreen(
                 navController = navController,
                 modifier = modifier,
                 authViewModel = authViewModel

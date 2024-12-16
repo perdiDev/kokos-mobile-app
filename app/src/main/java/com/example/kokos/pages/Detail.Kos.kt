@@ -2,6 +2,7 @@ package com.example.kokos.pages
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -19,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.kokos.AuthViewModel
 import com.example.kokos.BottomNavigationBar
 import com.example.kokos.R
 
@@ -26,7 +28,7 @@ import com.example.kokos.R
 data class KostTerkaitData(val name: String, val price: String, val rating: String)
 
 @Composable
-fun DetailKostScreen(navController: NavController) { // Menambahkan navController sebagai parameter
+fun DetailKostScreen(navController: NavController, modifier: Modifier, authViewModel: AuthViewModel) { // Menambahkan navController sebagai parameter
     // List of "Kost Terkait" items
     val kostList = listOf(
         KostTerkaitData("Kost Fatih", "Rp. 50.000 / bln", "95%"),
@@ -50,7 +52,8 @@ fun DetailKostScreen(navController: NavController) { // Menambahkan navControlle
                     style = TextStyle(
                         fontSize = 14.sp,
                         color = Color.Gray
-                    )
+                    ),
+                    modifier = Modifier.clickable { navController.navigate("home") }
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Icon(
@@ -213,9 +216,9 @@ fun KostTerkaitItem(name: String, price: String, rating: String) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun DetailKostScreenPreview() {
-    // Perbaiki dengan menambahkan navController pada preview
-    DetailKostScreen(navController = rememberNavController())
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun DetailKostScreenPreview() {
+//    // Perbaiki dengan menambahkan navController pada preview
+//    DetailKostScreen(navController = rememberNavController())
+//}
