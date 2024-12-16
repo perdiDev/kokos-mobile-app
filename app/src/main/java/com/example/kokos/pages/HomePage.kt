@@ -2,6 +2,7 @@ package com.example.kokos.pages
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,13 @@ import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -315,8 +323,55 @@ fun SectionKosTerdekat() {
     }
 }
 
-@Preview
 @Composable
 private fun HomePreview() {
     Home()
+}
+
+@Composable
+fun BottomNavigationBar(navController: NavController, currentRoute: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color(0xFFD7B1A7))
+            .padding(8.dp),
+        horizontalArrangement = Arrangement.SpaceAround
+    ) {
+        NavigationIcon(
+            resourceId = R.drawable.ic_home,
+            contentDescription = "Home",
+            onClick = { navController.navigate("home") },
+            isSelected = currentRoute == "home"
+        )
+        NavigationIcon(
+            resourceId = R.drawable.ic_favorite,
+            contentDescription = "Favorites",
+            onClick = { navController.navigate("favorites") },
+            isSelected = currentRoute == "favorites"
+        )
+        NavigationIcon(
+            resourceId = R.drawable.ic_profile,
+            contentDescription = "Profile",
+            onClick = { navController.navigate("profile") },
+            isSelected = currentRoute == "profile"
+        )
+        NavigationIcon(
+            resourceId = R.drawable.ic_settings,
+            contentDescription = "Settings",
+            onClick = { navController.navigate("settings") },
+            isSelected = currentRoute == "settings"
+        )
+    }
+}
+
+@Composable
+fun NavigationIcon(resourceId: Int, contentDescription: String, onClick: () -> Unit, isSelected: Boolean = false) {
+    Icon(
+        painter = painterResource(id = resourceId),
+        contentDescription = contentDescription,
+        tint = if (isSelected) Color.White else Color.Gray, // Menandai ikon yang terpilih
+        modifier = Modifier
+            .size(24.dp)
+            .clickable(onClick = onClick)
+    )
 }
